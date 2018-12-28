@@ -1,0 +1,11 @@
+**/*.pyc
+.idea/
+id_rsa
+pg-data/
+settings/local.py
+.pytest_cache/**/*
+logs/*
+.env
+**/*.bak
+**/*tmp.py
+**/*temp.py
