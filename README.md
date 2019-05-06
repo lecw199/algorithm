@@ -14,7 +14,6 @@ class Solution:
         elif n < 3:
             return True
         
-        
         return bin(n).count('1') == 1 
 ```
 
