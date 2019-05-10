@@ -359,6 +359,31 @@ class Solution(object):
         
 ```
 
+#### 22 括号生成
+
+```
+class Solution(object):
+    def generateParenthesis(self, n):
+        
+        length = 2*n
+        result = []
+        def dfs(left, right, string):
+            
+            if left < right or left > n or right > n:
+                return
+            
+            if left == n and left == right:
+                result.append(string)
+                return
+            
+            dfs(left, right+1, string+')')
+                
+            dfs(left+1, right,  string+'(')
+            
+        dfs(1, 0, '(')
+        return result
+```
+
 ## 排序
 
 
