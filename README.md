@@ -19,6 +19,52 @@ class Solution(object):
         return sum
 ```
 
+#### 78 子集
+* 解法一   
+序列[1,2,3]的子集对应的排列就是000-111  
+通过&计算1的顺序  
+```
+class Solution(object):
+    def subsets(self, nums):
+        length = 2**len(nums)
+        result = [0] * length
+        for i in range(length):
+            t = i
+            tmp = []
+            j = 0
+            while t:
+                if t&1:
+                    tmp.append(nums[j])
+                j += 1
+                t = t >> 1
+                
+            result[i] = tmp
+            
+        return result
+```
+* 解法二   
+方法同一， 法一是&1后做偏移运算
+这里是& 1，2，4...判断对应的位置是否为1   
+```
+class Solution(object):
+    def subsets(self, nums):
+        length = len(nums)
+        size = 2 ** length
+        i = 1
+
+        result = [[]]
+        while i < size:
+            tmp = []
+            for j in range(length):
+                t = 1<<j
+                if i&t:
+                    tmp.append(nums[j])
+            result.append(tmp)
+            i += 1
+
+        return result
+```
+
 #### 29 两数相除  
 1、异或判断两个数正负;      
 2、推导式：dividend/2**x > divisor ==> dividend > 2**x ** divisor;    
@@ -226,6 +272,36 @@ class Solution:
 *
 
 
+#### 50 Power(x, n)
+* 解法一 简单分治
+```
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return x/x
+
+        flag = True
+        if n < 0:
+            n, flag = -n, False
+        
+        cnt, x2 = 1, x
+        while True:
+            if n%2 == 0:
+                x2 = x2*x2
+                n /= 2
+                if n == 1:
+                    break
+            else:
+                n -= 1
+                if n == 0:
+                    break
+                cnt *= x2
+                
+        if flag:
+            return cnt*x2
+
+        return 1/(cnt*x2)
+```
 
 ### 平面计算
 
@@ -252,5 +328,40 @@ class Solution:
 ## 树
 
 ## 动态规划
+
+
+## 搜索
+
+### dfs 深度优先搜索
+
+#### 78 子集   
+递归，注意数组在递归中的影响，递归的出口
+```
+class Solution(object):
+    def subsets(self, nums):
+        length = len(nums)
+        result = []
+        
+        def dfs(t, tmp=None):
+            if tmp == None:
+                tmp = []
+                
+            if t == length:
+                result.append(tmp)
+                return
+            
+            dfs(t+1, tmp.copy())
+            tmp.append(nums[t])
+            dfs(t+1, tmp.copy())
+        dfs(0)
+        
+        return result
+        
+```
+
+## 排序
+
+
+
 
 
