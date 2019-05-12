@@ -5,6 +5,52 @@ learning algorithm program
 
 ### 二进制计算
 
+#### 136 只出现一次的数字
+* 解法一   
+异或的应用   x ^ 0 = x; x ^ x =0   
+```
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        for i in nums[1:]:
+            nums[0] ^= i
+        return nums[0]
+```
+
+#### 389  找不同   
+异或的应用   x ^ 0 = x; x ^ x =0     
+```
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        ret = 0
+        for i in s:
+            ret ^= ord(i)
+        for j in t:
+            ret ^= ord(j)
+                
+        return chr(ret)
+```
+
+260 只出现一次的数字 III
+* 解法一 异或的应用   
+```
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        
+        t = 0
+        for i in nums:
+            t ^= i
+            
+        n = len(bin(t))-3  #取高位
+        a, b = 0, 0
+        for i in nums:
+            if i>>n&1: # a高位为1， 相同的会消掉
+                a ^= i
+            else: # b高位必为0，相同的会消掉
+                b ^= i
+                
+        return b, a
+```
+
 
 #### 371 两整数之和   
 位运算求和，先异或不进位，与进位   
@@ -62,6 +108,39 @@ class Solution(object):
             result.append(tmp)
             i += 1
 
+        return result
+```
+
+#### 22 括号生成
+```
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        length = 2*n
+        result = []
+        
+        binary = [ 1<<i for i in range(length-1, -1, -1)]
+        mn = sum(binary[0::2])
+        for i in range(2**length-1, mn-1, -1):
+            tmp = ['(']
+            left = 1
+            right = 0
+            for j in binary[1:]:
+                if right > left or left >n or right > n:
+                    break
+                if i&j:
+                    tmp.append('(')
+                    left += 1
+                else:
+                    tmp.append(')')
+                    right += 1
+                    
+            if len(tmp) == length and left == right:
+                result.append(''.join(tmp))
+                
         return result
 ```
 
