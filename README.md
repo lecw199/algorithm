@@ -112,6 +112,7 @@ class Solution(object):
 ```
 
 #### 22 括号生成
+* 解法一 用二进制进行位判断     
 ```
 class Solution(object):
     def generateParenthesis(self, n):
@@ -439,7 +440,7 @@ class Solution(object):
 ```
 
 #### 22 括号生成
-
+* 解法一 dfs  
 ```
 class Solution(object):
     def generateParenthesis(self, n):
