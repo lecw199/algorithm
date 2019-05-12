@@ -147,7 +147,7 @@ class Solution(object):
 
 #### 29 两数相除  
 1、异或判断两个数正负;      
-2、推导式：dividend/2\*\*x > divisor ==> dividend > 2\*\*x ** divisor;    
+2、推导式：dividend/2\*\*x > divisor ==> dividend > 2\*\*x * divisor;    
 3、边界点 -2**31 / -1;   
 ```
 class Solution:
