@@ -214,6 +214,34 @@ class Solution:
         return n > 0 and n & (n-1) == 0
 ```
 
+####  318 最大单词长度乘积  
+将26个字母对应到2\*\*1-2\*\*26次, 然后用&计算即可。   
+* 解法一
+```
+class Solution:
+    def maxProduct(self, words: List[str]) -> int:
+        b = [1] * 26
+        for i in range(1,26):
+            b[i] = 2*b[i-1]
+            
+        length = len(words)
+        res = [0]*length
+        for i in range(length):
+            for j in set(words[i]):
+                res[i] += b[ord(j) - 97]
+                
+        mx = 0
+        for i in range(length-1):
+            for j in range(i, length):
+                if res[i]&res[j] == 0:
+                    t = len(words[i]) * len(words[j])
+                    if t > mx:
+                        mx = t
+                        
+        return mx
+```   
+
+
 #### 326 3的冥
 * 解法一   
 log(n,3) = log10(n)/log10(3)
