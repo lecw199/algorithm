@@ -145,6 +145,75 @@ class Solution(object):
         return result
 ```
 
+#### 201 数字范围按位与
+
+* 解法一 统计各个位置上的0 
+```
+class Solution:
+    def rangeBitwiseAnd(self, m: int, n: int) -> int:
+        
+        if m == 0 and n-m < 2:
+            return n&m
+        
+        nlength = len(bin(n))
+        mlength = len(bin(m))
+        
+        t = [1]*32
+        for i in range(1,32):
+            t[i] = t[i-1] << 1
+            
+        if nlength == mlength:
+            rec = [1]*(nlength-2)
+            d = m
+            while True:
+                if sum(rec) == 1 or d > n:
+                    break
+                for i in range(nlength-2): # 记录各个位置上的0
+                    if t[i]&d == 0:
+                        rec[i] =0
+                d += 1
+                   
+            ret = 0
+            for i in range(nlength-2):
+                ret += rec[i]*t[i]
+            return ret
+            
+        elif nlength > mlength:
+            return 0
+```
+
+* 解法二  计算n与m的二进制高位  
+
+```
+class Solution:
+    def rangeBitwiseAnd(self, m: int, n: int) -> int:
+        
+        if m == 0 and n-m < 2: # 边界条件
+            return n&m
+        
+        nlength = len(bin(n))  # 计算二进制长度，这里还有'0b'未去掉
+        mlength = len(bin(m))
+        
+        # 可以将该段代码，放到类初始化函数中，也可以修改32-->nlength-2
+        t = [1]*32   # 保存2的次方用以判断数字该位置上是否为1
+        for i in range(1,32):
+            t[i] = t[i-1] << 1  # 位移加快处理
+            
+        if nlength > mlength:
+            return 0
+
+        elif nlength == mlength:
+            total = 0
+            for i in range(nlength-3, -1, -1): 
+                d = n & t[i]
+                if d ==  m & t[i] : # 将m与n的高位依次取出
+                    total +=  d
+                else:
+                    break
+                
+            return total              
+```
+
 #### 29 两数相除  
 1、异或判断两个数正负;      
 2、推导式：dividend/2\*\*x > divisor ==> dividend > 2\*\*x ** divisor;    
