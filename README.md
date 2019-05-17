@@ -214,6 +214,59 @@ class Solution:
             return total              
 ```
 
+#### 401 二进制手表   
+* 解法一 用二进制位来标记选中该时间   
+```
+class Solution:
+    def readBinaryWatch(self, num: int) :
+        
+        if num == 0:
+            return ['0:00']
+        elif num > 8:
+            return []
+            
+        hour = [1, 2, 4, 8]
+        minute = [1, 2, 4,  8, 16, 32]
+        h_mx = 3
+        m_mx = 5
+        
+        def compute(t, lst, mx):
+            if t == 0:
+                return [0]
+            s = []
+            length = len(lst)
+            for i in range(1, sum(lst[length-t:])+1):
+                zero_list = [0]*length
+                count = 0
+                for j in range(length):
+                    if i&lst[j]:   # 标记二进制位置
+                        zero_list[j] = 1
+                        count += 1  # 统计二进制位为1的数量
+                if count == t:  
+                    string = 0
+                    for k in range(length):
+                        string += zero_list[k]*lst[k]
+                    if string < mx:
+                        s.append(string)
+            return s
+        
+        ret = []
+        for i in range(min(h_mx,num)+1):
+
+            j = num - i
+            if j > m_mx:
+                continue
+            
+            s_hour = compute(i, hour, 12)
+            s_minute = compute(j, minute, 60)
+                
+            for p in s_hour:
+                for q in s_minute:
+                    ret.append('%s:%02d'% (p,q))
+                
+        return ret
+```
+
 #### 29 两数相除  
 1、异或判断两个数正负;      
 2、推导式：dividend/2\*\*x > divisor ==> dividend > 2\*\*x * divisor;    
