@@ -267,6 +267,29 @@ class Solution:
         return ret
 ```
 
+#### 397 整数替换   
+* 解法一  当加1可以抵消2位时，加1，否则减1   
+```
+class Solution:
+    def integerReplacement(self, num: int) :
+        count = 0
+        while num > 1:
+            if num == 3: #  边界条件3
+                count += 2
+                break
+                
+            if num & 0b1 == 0: # 偶数时，除以2
+                num //=  2
+                count += 1
+            else:
+                if (num+1) & 0b11 == 0: # 当加1可以抵消2位时，加1，否则减1
+                    num += 1
+                else:
+                    num -= 1
+                count += 1
+        return count
+```
+
 #### 29 两数相除  
 1、异或判断两个数正负;      
 2、推导式：dividend/2\*\*x > divisor ==> dividend > 2\*\*x * divisor;    
@@ -559,6 +582,20 @@ class Solution:
 
 ## 动态规划
 
+#### 898 子数组按位或操作   
+* 解法一 中级难度dp    
+1、转移方程式dp[i] = {b ^ A[i] for b in dp[i - 1]} + {A[i]}，即以A[i]结尾的所有子数组异或结果等于以A[i-1]结尾的所有子数组异或结果，与当前的A[i]异或的结果集合，再并上{A[i]}     
+2、 t = { a|n for n in cur}  ==> len(t) < 32  
+```
+class Solution(object):
+    def subarrayBitwiseORs(self, A):
+        res = set()
+        cur = set()
+        for a in A:
+            cur = {n | a for n in cur} | {a}
+            res |= cur   # 取并集
+        return len(res)
+```
 
 ## 搜索
 
