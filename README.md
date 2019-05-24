@@ -4,6 +4,33 @@ learning algorithm program
 ## 数学
 
 ### 二进制计算
+#### 477 汉明距离总和
+* 解法一   
+统计所有数&2的零次方到2的32次方出现1，0的次数, 例如:   
+[2, 5, 6]
+[2, 5, 6] 到 2^0  0，1，0 那在2的0次这个层面，就是 count(0)*count(1) = 2
+[2, 5, 6] 到 2^1  1，0，1 那在2的0次这个层面，就是 count(0)*count(1) = 2
+[2, 5, 6] 到 2^2  0，1，1 那在2的0次这个层面，就是 count(0)*count(1) = 2
+那总距离就为6
+```
+class Solution:
+    def totalHammingDistance(self, nums: List[int]) -> int:
+        
+        t = [1]*32
+        for i in range(1,32):
+            t[i] = t[i-1] << 1
+            
+        count = 0
+        length = len(nums) 
+        for i in t:
+            one = 0
+            for j in nums:
+                one += (i&j) // i
+            count += one*(length-one)
+            
+        return count
+                    
+```
 
 #### 136 只出现一次的数字
 * 解法一   
