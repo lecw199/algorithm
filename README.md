@@ -461,6 +461,12 @@ class Solution:
         return self.mx%n == 0
 ```
 
+ 
+#### 954 二倍数对数组  array-of-doubled-pairs
+
+这个题，题意很简单，判断一个列表，通过更换位置，使偶数位置上的数是奇数位置上的两倍。
+
+
 #### 762 二进制表示中质数个计算置位
 * 解法一   
 ```
@@ -626,6 +632,10 @@ class Solution(object):
             res |= cur   # 取并集
         return len(res)
 ```
+
+####  97 交错字符串  interleaving-string
+
+这道题挺有意思的一道dp题， 一般的dp都是提供正向，这道题提供x轴和y轴，来拼凑，一般人很难想到都为认为是搜索题，而走偏；
 
 ## 搜索
 
