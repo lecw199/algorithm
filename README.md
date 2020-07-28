@@ -711,3 +711,7 @@ class Solution(object):
 如果hash值不同，字符串必然不匹配，如果hash值相同，还需要使用朴素算法再次判断
 
 
+### 背包问题
+
+#### 0/1背包问题常见的两种解法  
+##### partition-equal-subset-sum 
